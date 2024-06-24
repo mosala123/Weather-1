@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('day').textContent = `${dayName}, ${month} ${date}`;
 
   // Get user's permission to access location
-  if (confirm("هل تسمح لنا باستخدام موقعك لحساب درجة الحرارة في منطقتك؟")) {
+  if (confirm("Allow us to use your location to calculate the temperature in your area ?")) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showWeather, showError);
     } else {
-      alert("الموقع الجغرافي غير مدعوم في هذا المتصفح.");
+      alert( "Location is not supported in this browser.");
     }
   } else {
-    alert("لم يتم منح الإذن للوصول إلى الموقع.");
+    alert("Permission has not been granted to access the site.");
   }
 });
 
@@ -35,7 +35,7 @@ document.getElementById("submit").addEventListener("click", function () {
         document.getElementById("humidity-value").textContent = `RH: ${data.main.humidity}%`;
         clear();
       } else {
-        alert("يرجى اختيار أو إدخال مدينة.");
+        alert("Please choose the city first.");
         clearData();
       }
     });
@@ -58,22 +58,7 @@ function showWeather(position) {
     });
 }
 
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      alert("تم رفض إذن الوصول إلى الموقع.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      alert("معلومات الموقع غير متاحة.");
-      break;
-    case error.TIMEOUT:
-      alert("انتهت مهلة الطلب للحصول على الموقع.");
-      break;
-    case error.UNKNOWN_ERROR:
-      alert("حدث خطأ غير معروف.");
-      break;
-  }
-}
+ 
 
 function clearData() {
   document.getElementById("input").value = "";
